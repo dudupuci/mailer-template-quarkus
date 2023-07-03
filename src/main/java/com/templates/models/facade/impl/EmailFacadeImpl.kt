@@ -1,10 +1,10 @@
 package com.templates.models.facade.impl
 
 import com.templates.models.commands.CreateEmailCommand
+import com.templates.models.commands.ProcessEmailCommand
 import com.templates.models.entities.Email
 import com.templates.models.facade.EmailFacade
 import com.templates.models.usecases.impl.CreateEmailUseCaseImpl
-import com.templates.models.usecases.impl.CreateSenderAttemptUseCaseImpl
 import com.templates.models.usecases.impl.FindEmailByIdUseCaseImpl
 import com.templates.models.usecases.impl.ProcessEmailUseCaseImpl
 import jakarta.enterprise.context.ApplicationScoped
@@ -24,7 +24,7 @@ class EmailFacadeImpl(
         return this.findEmail.execute(input)
     }
 
-    override fun processEmail(input: UUID): Email {
-        return this.processEmail.execute(input)
+    override fun process(input: ProcessEmailCommand): Email {
+        return this.processEmail.execute(input.emailId)
     }
 }

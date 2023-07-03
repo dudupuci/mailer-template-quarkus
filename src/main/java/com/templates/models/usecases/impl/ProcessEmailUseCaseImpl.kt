@@ -19,11 +19,20 @@ class ProcessEmailUseCaseImpl(
                 ?: throw RuntimeException("email_not_found")
 
         if (email.status == EmailStatus.PENDING) {
-            mailer.send(Mail.withText(
-                    listOf(email.destination.to).toString(),
-                    "Send test",
-                    "Sending a simple mail"
-            ))
+            try {
+                mailer.send(Mail.withText(
+                        listOf(email.destination.to).toString(),
+                        "Send test",
+                        "Sending a simple mail"
+                ))
+                email.setToSent()
+            } catch (err: Exception) {
+                email.setToFailed()
+                throw RuntimeException("Error: " + err.message)
+            } finally {
+                email.setUpdatedAt()
+                repository.save(email)
+            }
         }
 
         return email

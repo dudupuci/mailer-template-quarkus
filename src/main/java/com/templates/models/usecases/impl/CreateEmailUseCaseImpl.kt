@@ -10,7 +10,7 @@ import jakarta.enterprise.context.ApplicationScoped
 @ApplicationScoped
 class CreateEmailUseCaseImpl(
         private val repository: EmailRepository,
-        private val senderAttemptRepository: SenderAttemptRepository
+        private val senderAttemptRepository: SenderAttemptRepository,
 ) : CreateEmailUseCase {
     override fun execute(input: CreateEmailCommand): Email {
         val email = Email.from(input)

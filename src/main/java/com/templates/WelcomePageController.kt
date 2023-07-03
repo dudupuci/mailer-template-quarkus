@@ -1,5 +1,6 @@
 package com.templates
 
+import com.templates.models.commands.ProcessEmailCommand
 import com.templates.models.entities.Email
 import com.templates.models.facade.EmailFacade
 import com.templates.models.requests.CreateEmailRequest
@@ -20,6 +21,16 @@ class WelcomePageController(
     @Inject
     lateinit var welcome: Template
 
+
+    @POST
+    @Path("/process/{id}")
+    fun processEmail(@PathParam("id") request: UUID): Email {
+        val email = emailFacade.findById(request)
+        return this.emailFacade.process(ProcessEmailCommand(
+                emailId = email?.let { it.id } ?: throw RuntimeException()
+        ))
+    }
+
     @POST
     @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -35,7 +46,6 @@ class WelcomePageController(
             @QueryParam("id") id: UUID,
             @QueryParam("name") name: String
     ): TemplateInstance {
-        val email = this.emailFacade.processEmail(id)
         return welcome.data(
                 "id", id,
                 "name", name)

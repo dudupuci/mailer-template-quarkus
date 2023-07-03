@@ -49,6 +49,10 @@ class Email(
         }
     }
 
+    fun setUpdatedAt() {
+        updatedAt = Instant.now()
+    }
+
     fun setToSent() {
         status = EmailStatus.SENT
     }
@@ -61,15 +65,11 @@ class Email(
 data class Template(
         val name: String,
         val params: Map<String, Any>
-) {
-
-}
+)
 
 data class Destination(
         val to: List<String>
-) {
-
-}
+)
 
 data class SenderAttempt(
         val id: UUID,

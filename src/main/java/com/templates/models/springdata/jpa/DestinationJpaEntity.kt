@@ -1,11 +1,8 @@
 package com.templates.models.springdata.jpa
 
+import com.templates.models.converters.ListConverterPersist
 import com.templates.models.entities.Destination
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.Table
-import jakarta.persistence.Transient
+import jakarta.persistence.*
 import java.util.*
 
 @Entity
@@ -16,8 +13,9 @@ class DestinationJpaEntity {
     @Column(name = "id")
     lateinit var id: UUID
 
-    @Transient
-    lateinit var to: List<String>
+    @Convert(converter = ListConverterPersist::class)
+    @Column(name = "sent_to")
+    var to: List<String> = ArrayList()
 
     companion object {
         fun from(destination: Destination): DestinationJpaEntity {

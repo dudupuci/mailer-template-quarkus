@@ -1,5 +1,6 @@
 package com.templates.models.springdata.jpa
 
+import com.templates.models.converters.MapConverter
 import com.templates.models.entities.Template
 import jakarta.persistence.*
 import java.util.*
@@ -9,13 +10,15 @@ import java.util.*
 class TemplateJpaEntity {
 
     @Id
+    @Column(name = "id")
     lateinit var id: UUID
 
     @Column(name = "name")
     lateinit var name: String
 
-    @Transient
-    lateinit var params: Map<String, Any>
+    @Convert(converter = MapConverter::class)
+    @Column(name = "params")
+    var params: Map<String, Any> = mapOf()
 
     companion object {
         fun from(template: Template): TemplateJpaEntity {

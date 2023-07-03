@@ -3,7 +3,6 @@ package com.templates.models.springdata.jpa.repositories
 import com.templates.models.entities.Email
 import com.templates.models.repositories.EmailRepository
 import com.templates.models.springdata.jpa.EmailJpaEntity
-import com.templates.models.springdata.jpa.EmailJpaRepository
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.transaction.Transactional
 import java.util.*

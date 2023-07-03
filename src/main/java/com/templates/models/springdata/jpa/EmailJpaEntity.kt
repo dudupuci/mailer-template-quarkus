@@ -49,6 +49,7 @@ class EmailJpaEntity {
                 destination = DestinationJpaEntity.from(email.destination)
                 status = email.status
                 attempts = email.attempts.map { SenderAttemptJpaEntity.from(it) }
+                template = TemplateJpaEntity.from(email.template)
             }
         }
     }

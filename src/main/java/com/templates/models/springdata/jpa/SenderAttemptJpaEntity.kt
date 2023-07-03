@@ -12,7 +12,6 @@ import java.util.*
 @Table(name = "sender_attempts")
 class SenderAttemptJpaEntity {
 
-
     @Id
     @Column(name = "id")
     lateinit var id: UUID
